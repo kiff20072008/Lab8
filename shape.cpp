@@ -3,6 +3,10 @@
 #include "shape.hpp"
 
 
+void Shape::updateRecAfterTurn()
+{
+}
+
 void Shape::move(point_t temp)
 {
 	rect_.pos= temp;

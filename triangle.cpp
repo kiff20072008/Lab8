@@ -15,7 +15,7 @@ Triangle::Triangle(point_t p = { 0,0 }, double x = 10)
 	name_ = "Triangle";
 	rect_.height = height_ = x;
 	rect_.width = side_ = x / OTNOSH;
-	rect_.pos=pos_ = p;
+	rect_.pos= p;
 }
 
 Triangle::Triangle(const Triangle & obj)
@@ -23,7 +23,7 @@ Triangle::Triangle(const Triangle & obj)
 	angle_ = obj.angle_;
 	rect_.height = height_ = obj.height_;
 	name_ = obj.name_;
-	rect_.pos = pos_ = obj.pos_;
+	rect_.pos  = obj.rect_.pos;
 	rect_.width = side_ = obj.side_;
 }
 
@@ -34,7 +34,7 @@ Triangle& Triangle::operator=(const Triangle& obj)
 		angle_ = obj.angle_;
 		rect_.height = height_ = obj.height_;
 		name_ = obj.name_;
-		rect_.pos = pos_ = obj.pos_;
+		rect_.pos = obj.rect_.pos;
 		rect_.width = side_ = obj.side_;
 	}
 	return *this;
@@ -54,7 +54,7 @@ double Triangle::getArea()const
 	return (height_*height_ / sqrt(3.));
 }
 
-rectangle_t Triangle::getFrameRect()
+rectangle_t Triangle::getFrameRect() const
 {
 	return rect_;
 }
