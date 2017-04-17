@@ -11,8 +11,10 @@ int main()
 {
 	point_t pont1{ 100,20 }, pont2{ 15,15 };
 
-	Circle cir(point_t{ 15,5 },12);
-	Triangle treug(pont1, 10), treug2;
+
+	point_t a{ 1,1 }, b{ 2,2 }, c{ 3,1 };
+	Circle cir(point_t{ 15,5 }, 12);
+	Triangle treug(a, b, c) , treug2;
 	Rectangle rec1(pont2,10,10), rec2(pont1, 5, 10);
 	CompositeShape obj(cir);
 	Spisok spis(obj),obj1(&cir),obj2(&cir);

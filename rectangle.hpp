@@ -6,7 +6,7 @@ class Rectangle : public Shape
 {
 public:
 	Rectangle();
-	Rectangle(point_t,double,double,double);
+	Rectangle(point_t,double,double,double=0);
 	Rectangle(const Rectangle&);
 
 	Rectangle& operator=(const Rectangle&);

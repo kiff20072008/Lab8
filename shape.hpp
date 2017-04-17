@@ -11,8 +11,8 @@ public:
 	virtual rectangle_t getFrameRect() const =0;
 	virtual void updateRecAfterTurn();
 	virtual void setScale(double) = 0;
-	void move(point_t);
-	void move(double, double);
+	virtual void move(point_t);
+	virtual void move(double, double);
 	void setAngle(double);
 	std::string getName()const;
 	point_t getPos()const;

@@ -6,7 +6,7 @@ class Circle : public Shape
 {
 public:
 	Circle();
-	Circle(point_t,double) ;
+	Circle(point_t,double=0) ;
 	Circle(const Circle& obj);
 	Circle& operator=(const Circle& obj);
 	rectangle_t getFrameRect() const;

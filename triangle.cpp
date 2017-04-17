@@ -29,6 +29,35 @@ Triangle::Triangle(const Triangle & obj)
 	c_ = obj.c_;
 }
 
+void Triangle::move(point_t new_point)
+{
+	point_t temp;
+	temp.x = new_point.x - rect_.pos.x;
+	temp.y = new_point.y - rect_.pos.y;
+	a_.x += temp.x;
+	b_.x += temp.x;
+	c_.x += temp.x;
+	a_.y += temp.y;
+	b_.y += temp.y;
+	c_.y += temp.y;
+
+	rect_.pos = new_point;
+
+}
+
+void Triangle::move(double x, double y)
+{
+	a_.x += x;
+	b_.x += x;
+	c_.x += x;
+	a_.y += y;
+	b_.y += y;
+	c_.y += y;
+	rect_.pos = getFindCenterTriangle();
+}
+
+
+
 Triangle& Triangle::operator=(const Triangle& obj)
 {
 	if (this != &obj)
@@ -65,7 +94,7 @@ void Triangle::setScale(double coef)
 		b_.y = rect_.pos.y + temp_b.y;
 		c_.x = rect_.pos.x + temp_c.x;
 		c_.y = rect_.pos.y + temp_c.y;
-		updateRecAfterTurn();
+		updateRec();
 	}
 }
 
@@ -79,7 +108,67 @@ rectangle_t Triangle::getFrameRect() const
 	return rect_;
 }
 
+point_t Triangle::getFindCenterTriangle() const
+{
+	return (point_t{ (a_.x + b_.x + c_.x) / 3,(a_.y + b_.y + c_.y) / 3 });
+}
+
 void Triangle::updateRecAfterTurn()
 {
+	point_t temp_a, temp_b, temp_c;
 
+	a_.x -= rect_.pos.x;
+	a_.y -= rect_.pos.y;
+	b_.x -= rect_.pos.x;
+	b_.y -= rect_.pos.y;
+	c_.x -= rect_.pos.x;
+	c_.y -= rect_.pos.y;
+
+	temp_a.x = a_.x*cos(angle_) - a_.y*sin(angle_);
+	temp_a.y = a_.x*sin(angle_) + a_.y*cos(angle_);
+	temp_b.x = b_.x*cos(angle_) - b_.y*sin(angle_);
+	temp_b.y = b_.x*sin(angle_) + b_.y*cos(angle_);
+	temp_c.x = c_.x*cos(angle_) - c_.y*sin(angle_);
+	temp_c.y = c_.x*sin(angle_) + c_.y*cos(angle_);
+
+	a_.x = rect_.pos.x + temp_a.x;
+	a_.y = rect_.pos.y + temp_a.y;
+	b_.x = rect_.pos.x + temp_b.x;
+	b_.y = rect_.pos.y + temp_b.y;
+	c_.x = rect_.pos.x + temp_c.x;
+	c_.y = rect_.pos.y + temp_c.y;
+
+	updateRec();
+	
+}
+
+void Triangle::updateRec()
+{
+	rect_.pos = getFindCenterTriangle();
+
+	rect_.height = minMax(a_.y, b_.y, c_.y);
+	rect_.width = minMax(a_.x, b_.x, c_.x);
+}
+
+double Triangle::minMax(double first_, double second_, double third_) const
+{
+	double temp_min=first_, temp_max=third_;
+
+	if (second_ < temp_min)
+	{
+		temp_min = second_;
+	}
+	if (third_ < temp_min)
+	{
+		temp_min = third_;
+	}
+	if (first_ > temp_max)
+	{
+		temp_max = first_;
+	}
+	if (second_ > temp_max)
+	{
+		temp_max = second_;
+	}
+	return (temp_max - temp_min);
 }
