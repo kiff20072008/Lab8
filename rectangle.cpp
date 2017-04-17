@@ -24,12 +24,14 @@ Rectangle::Rectangle():height_(0),width_(0)
 	rect_.width = width_;
 }
 
-Rectangle::Rectangle(point_t p , double x = 0, double y = 0)
+Rectangle::Rectangle(point_t p , double x , double y,double angle = 0 )
 {
 	name_ = "Rectangle";
-	rect_.height = height_ = x;
-	rect_.width = width_ = y;
+	height_ = x;
+	width_ = y;
 	rect_.pos = p;
+	angle_ = angle;
+	updateRecAfterTurn();
 }
 
 Rectangle& Rectangle::operator=(const Rectangle& obj)
@@ -37,10 +39,10 @@ Rectangle& Rectangle::operator=(const Rectangle& obj)
 	if (this != &obj)
 	{
 		angle_ = obj.angle_;
-		rect_.height = height_ = obj.height_;
+		rect_ = obj.rect_;
 		name_ = obj.name_;
-		rect_.pos =  obj.rect_.pos;
-		rect_.width = width_ = obj.width_;
+		height_ = obj.height_;
+		width_ = obj.width_;
 
 	}
 	return *this;
@@ -50,10 +52,10 @@ Rectangle& Rectangle::operator=(const Rectangle& obj)
 Rectangle::Rectangle(const Rectangle& obj)
 {
 	angle_ = obj.angle_;
-	rect_.height = height_ = obj.height_;
+	rect_ = obj.rect_;
 	name_ = obj.name_;
-	rect_.pos = obj.rect_.pos;
-	rect_.width = width_ = obj.width_;
+	height_ = obj.height_;
+	width_ = obj.width_;
 }
 
 double Rectangle::getArea() const 

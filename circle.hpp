@@ -6,13 +6,13 @@ class Circle : public Shape
 {
 public:
 	Circle();
-	Circle(point_t p, double raad) ;
+	Circle(point_t,double) ;
 	Circle(const Circle& obj);
 	Circle& operator=(const Circle& obj);
 	rectangle_t getFrameRect() const;
 	double getArea() const;
 	void setScale(double coef);
-	double  getRad() const;
+	double getRad() const;
 private:
 	double r_;
 };

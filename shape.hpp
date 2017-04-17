@@ -1,8 +1,8 @@
 #ifndef SHAPE_HPP
 #define SHAPE_HPP
 
-#include "base-types.hpp"
 #include <string>
+#include "base-types.hpp"
 
 class Shape
 {
@@ -11,13 +11,13 @@ public:
 	virtual rectangle_t getFrameRect() const =0;
 	virtual void updateRecAfterTurn();
 	virtual void setScale(double) = 0;
-	void move(point_t temp);
-	void move(double x, double y);
-	void setAngle(double temp);
+	void move(point_t);
+	void move(double, double);
+	void setAngle(double);
 	std::string getName()const;
 	point_t getPos()const;
 	double getAngle() const;
-	void operator+=(point_t right_obj);
+	void operator+=(point_t);
 	Shape();
 protected:
 	std::string name_;

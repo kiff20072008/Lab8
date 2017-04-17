@@ -7,7 +7,7 @@ class Triangle : public Shape
 {
 public:
 	Triangle();
-	Triangle(point_t p, double x);
+	Triangle(point_t,point_t,point_t,double);
 	Triangle(const Triangle & obj);
 
 	Triangle& operator=(const Triangle& obj);
@@ -17,7 +17,6 @@ public:
 	rectangle_t getFrameRect() const;
 	void updateRecAfterTurn();
 private:
-	double side_;
-	double height_;
+	point_t a_, b_, c_;
 };
 #endif

@@ -6,12 +6,12 @@ class Rectangle : public Shape
 {
 public:
 	Rectangle();
-	Rectangle(point_t p, double x, double y);
-	Rectangle(const Rectangle& obj);
+	Rectangle(point_t,double,double,double);
+	Rectangle(const Rectangle&);
 
-	Rectangle& operator=(const Rectangle& obj);
+	Rectangle& operator=(const Rectangle&);
 
-	void setScale(double coef);
+	void setScale(double);
 	double getArea() const;
 	rectangle_t getFrameRect() const;
 	void updateRecAfterTurn();

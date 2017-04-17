@@ -2,20 +2,17 @@
 #define _USE_MATH_DEFINES
 #include "circle.hpp"
 
-
-
-
 Circle::Circle() :r_(0)
 {
 	name_= "Circle";
 	rect_.height = rect_.width = 2 * r_;
 }
 
-Circle::Circle(point_t p = { 0,0 }, double raad = 0)
+Circle::Circle(point_t p , double raad = 0)
 {
-	if (raad <= 0)
+	if (raad < 0)
 	{
-		r_ = 1;
+		r_ = 0;
 	}else {
 		r_ = raad;
 	}
@@ -29,7 +26,6 @@ Circle::Circle(const Circle& obj)
 {
 	r_ = obj.r_;
 	name_ =obj.name_;
-	angle_ = obj.angle_;
 	rect_ = obj.rect_;
 }
 
@@ -39,7 +35,6 @@ Circle& Circle::operator=(const Circle& obj)
 	{
 		r_ = obj.r_;
 		name_ = obj.name_;
-		angle_ = obj.angle_;
 		rect_ = obj.rect_;
 	}
 	return *this;

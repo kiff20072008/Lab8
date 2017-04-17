@@ -1,30 +1,32 @@
-#include "Triangle.hpp"
 #include <math.h>
+#define _USE_MATH_DEFINES
+#include "Triangle.hpp"
 
-#define OTNOSH (sqrt(3.)/2.)
 
-Triangle::Triangle():height_(10),side_(10/OTNOSH)
+
+Triangle::Triangle() :a_({ 0,0 }), b_({ 0,0 }), c_({ 0,0 })
 {
 	name_ = "Triangle";
-	rect_.height = height_;
-	rect_.width = side_;
 }
 
-Triangle::Triangle(point_t p = { 0,0 }, double x = 10)
+Triangle::Triangle(point_t a, point_t b, point_t c, double angle = 0)
 { 
 	name_ = "Triangle";
-	rect_.height = height_ = x;
-	rect_.width = side_ = x / OTNOSH;
-	rect_.pos= p;
+	a_ = a;
+	b_ = b;
+	c_ = c;
+	angle_ = angle;
+	updateRecAfterTurn();
 }
 
 Triangle::Triangle(const Triangle & obj)
 {
 	angle_ = obj.angle_;
-	rect_.height = height_ = obj.height_;
 	name_ = obj.name_;
-	rect_.pos  = obj.rect_.pos;
-	rect_.width = side_ = obj.side_;
+	rect_  = obj.rect_;
+	a_ = obj.a_;
+	b_ = obj.b_;
+	c_ = obj.c_;
 }
 
 Triangle& Triangle::operator=(const Triangle& obj)
@@ -32,26 +34,44 @@ Triangle& Triangle::operator=(const Triangle& obj)
 	if (this != &obj)
 	{
 		angle_ = obj.angle_;
-		rect_.height = height_ = obj.height_;
 		name_ = obj.name_;
-		rect_.pos = obj.rect_.pos;
-		rect_.width = side_ = obj.side_;
+		rect_ = obj.rect_;
+		a_ = obj.a_;
+		b_ = obj.b_;
+		c_ = obj.c_;
 	}
 	return *this;
 }
 void Triangle::setScale(double coef)
 {
+	point_t temp_a, temp_b, temp_c;
 	if (coef>0)
 	{
-		side_ *= coef;
-		height_ *= coef;
+		temp_a.x = rect_.pos.x - a_.x;
+		temp_a.y = rect_.pos.y - a_.y;
+		temp_b.x = rect_.pos.x - b_.x;
+		temp_b.y = rect_.pos.y - b_.y;
+		temp_c.x = rect_.pos.x - c_.x;
+		temp_c.y = rect_.pos.y - c_.y;
+		temp_a.x *= coef;
+		temp_a.y *= coef;
+		temp_b.x *= coef;
+		temp_b.y *= coef;
+		temp_c.x *= coef;
+		temp_c.y *= coef;
+		a_.x = rect_.pos.x + temp_a.x;
+		a_.y = rect_.pos.y + temp_a.y;
+		b_.x = rect_.pos.x + temp_b.x;
+		b_.y = rect_.pos.y + temp_b.y;
+		c_.x = rect_.pos.x + temp_c.x;
+		c_.y = rect_.pos.y + temp_c.y;
 		updateRecAfterTurn();
 	}
 }
 
 double Triangle::getArea()const 
 {
-	return (height_*height_ / sqrt(3.));
+	return (((a_.x-c_.x)*(b_.y-c_.y)-(b_.x-c_.x)*(a_.y-c_.y))/2);
 }
 
 rectangle_t Triangle::getFrameRect() const
@@ -61,6 +81,5 @@ rectangle_t Triangle::getFrameRect() const
 
 void Triangle::updateRecAfterTurn()
 {
-	rect_.height = side_*sin(angle_) + side_*(cos(angle_) *OTNOSH - sin(angle_) / 2);
-	rect_.width = side_*cos(angle_) + side_*(sin(angle_)*OTNOSH - cos(angle_) / 2);
+
 }
